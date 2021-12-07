@@ -7,7 +7,7 @@ namespace AOC2021
     public class Day07 : DayBase, ITwoPartQuestion
     {
         public List<int> Crabs = new List<int>();
-        private readonly Dictionary<int, int> CachedFactors = new Dictionary<int, int>();
+        private readonly Dictionary<int, int> Factors = new Dictionary<int, int>();
 
         public Day07()
         {
@@ -23,13 +23,13 @@ namespace AOC2021
 
             for (int i = 0; i < Crabs.Count; i++)
             {
-                var fuelCost = 0;
+                var FuelCost = 0;
 
                 for (int j = 0; j < Crabs.Count; j++)
-                    fuelCost += Math.Abs(Crabs[j] - Crabs[i]);
+                    FuelCost += Math.Abs(Crabs[j] - Crabs[i]);
 
-                if (fuelCost < BestFuelUsage)
-                    BestFuelUsage = fuelCost;
+                if (FuelCost < BestFuelUsage)
+                    BestFuelUsage = FuelCost;
             }
 
             return $"{BestFuelUsage}";
@@ -39,37 +39,31 @@ namespace AOC2021
         {
             var BestFuelUsage = int.MaxValue;
 
+            CalculateFactors();
+
             for (int i = Crabs.Min(); i <= Crabs.Max(); i++)
             {
-                var fuelCost = 0;
+                var FuelCost = 0;
 
                 for (int j = 0; j < Crabs.Count; j++)
-                    fuelCost += CalculateCost(Math.Abs(Crabs[j] - i));
+                    FuelCost += Factors[Math.Abs(Crabs[j] - i)];
 
-                if (fuelCost < BestFuelUsage)
-                    BestFuelUsage = fuelCost;
+                if (FuelCost < BestFuelUsage)
+                    BestFuelUsage = FuelCost;
             }
 
             return $"{BestFuelUsage}";
         }
 
-        private int CalculateCost(int num)
+        private void CalculateFactors()
         {
-            var result = 0;
+            var counter = 0;
 
-            //no point calculating this every time, it gets reused a lot
-            if (CachedFactors.ContainsKey(num))
-                result = CachedFactors[num];
-            else
+            for (int i = 0; i < 2000; i++)
             {
-                result = Enumerable
-                    .Range(1, num)
-                    .Aggregate(1, (x, y) => x + y) - 1;
-
-                CachedFactors[num] = result;
+                counter += i;
+                Factors[i] = counter;
             }
-
-            return result;
         }
     }
 }
