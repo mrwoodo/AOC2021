@@ -13,7 +13,7 @@ namespace AOC2021
             //foreach (var day in days)
             //    Activator.CreateInstance(day);
 
-            _ = new Day01();
+            _ = new Day08();
 
             //Console.ReadLine();
         }

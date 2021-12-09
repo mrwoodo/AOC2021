@@ -14,7 +14,7 @@ namespace AOC2021
             Console.WriteLine($"{this.GetType().Name}\r\n");
         }
 
-        public string InputFile => File.ReadAllText($"Input\\{this.GetType().Name}.txt");
+        public string InputFile => File.ReadAllText($"{this.GetType().Name}\\{this.GetType().Name}.txt");
         public List<string> InputFileAsStringList => InputFile.Split("\r\n").ToList();
         public List<int> InputFileAsIntList => (from line in InputFileAsStringList select int.Parse(line)).ToList();
         public List<long> InputFileAsLongList => (from line in InputFileAsStringList select long.Parse(line)).ToList();
